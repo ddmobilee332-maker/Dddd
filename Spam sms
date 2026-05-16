@@ -1,0 +1,124 @@
+import time
+import os
+import random
+import sys
+from datetime import datetime
+
+# พยายามโหลด colorama เพื่อความสมจริงของสีสันหน้าจอ
+try:
+    from colorama import Fore, Style, init
+    init(autoreset=True)
+except ImportError:
+    class Style: RESET_ALL = ""
+    class Fore: RED = ""; GREEN = ""; CYAN = ""; YELLOW = ""; MAGENTA = ""; WHITE = ""; BLUE = ""
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def glitch_text(text, speed=0.02):
+    """ทำให้ตัวอักษรค่อยๆ ปรากฏเหมือนระบบกำลังถอดรหัส"""
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(speed)
+
+def cyber_loading(action_text, duration=1.2):
+    """อนิเมชั่นโหลดข้อมูลสไตล์ไซเบอร์"""
+    chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+    end_time = time.time() + duration
+    i = 0
+    while time.time() < end_time:
+        sys.stdout.write(f"\r{Fore.YELLOW}[{chars[i % len(chars)}] กำลัง{action_text}...")
+        sys.stdout.flush()
+        time.sleep(0.08)
+        i += 1
+    sys.stdout.write(f"\r{Fore.GREEN}[✓] {action_text} - เสร็จสิ้น\n")
+
+def show_hacker_banner():
+    clear_screen()
+    banner = f"""
+{Fore.GREEN} ▄████▄   ▓█████▄  ▒█████   ███▄    █  ▄████▄   ██▓ ▄▄▄       ███▄    █ 
+{Fore.GREEN}▒██▀ ▀█   ▒██▀ ██▌▒██▒  ██▒ ██ ▀█   █ ▒██▀ ▀█  ▓██▒▒████▄     ██ ▀█   █ 
+{Fore.GREEN}▒▓█    ▄  ░██   █▌▒██░  ██▒▓██  ▀█ ██▒▒▓█    ▄ ▒██▒▒██  ▀█▄  ▓██  ▀█ ██▒
+{Fore.GREEN}▒▓▓▄ ▄██▒ ░▓█▄   ▌▒██   ██░▓██▒  ▐▌██▒▒▓▓▄ ▄██▒░██░░██▄▄▄▄██ ▓██▒  ▐▌██▒
+{Fore.GREEN} ▒ ▓███▀ ░ ░▒████▓ ░ ████▓▒░▒██░   ▓██░ ▒ ▓███▀ ░░██░ ▓█   ▓██▒▒██░   ▓██░
+{Fore.GREEN} ░ ░▒ ▒  ░  ▒▒▓  ▒ ░ ▒░▒░▒░ ░ ▒░   ▒ ▒  ░ ░▒ ▒  ░░▓   ▒▒   ▓▒█░░ ▒░   ▒ ▒ 
+{Fore.LIGHTGREEN_EX}              >> RUENYAI CYBER CORE GATEWAY v2.5 <<
+{Fore.RED}       [ สถานะระบบ: ไม่เปิดเผยตัวตน ] | [ เครือข่าย: ปลอดภัย ]
+========================================================================="""
+    print(banner)
+
+def log_cyber_report(phone, total, success, failed):
+    log_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        with open("cyber_security_log.dat", "a", encoding="utf-8") as f:
+            f.write(f"[{log_time}] ADDR_REF: {phone} | REQ_COUNT: {total} | TX_OK: {success} | TX_ERR: {failed}\n")
+    except IOError:
+        pass
+
+def main():
+    show_hacker_banner()
+    
+    # 1. ป้อนข้อมูลเบอร์โทรศัพท์
+    glitch_text(f"{Fore.GREEN}[ระบบ] ระบุเบอร์โทรศัพท์เป้าหมาย (ระบบจำลอง): {Fore.WHITE}")
+    phone_number = input().strip()
+    if not phone_number:
+        print(f"{Fore.RED}\n[ข้อผิดพลาดร้ายแรง] ปฏิเสธการทำงาน: ไม่พบการระบุเป้าหมาย")
+        return
+
+    # 2. ป้อนจำนวนแพ็คเกจที่จะส่ง
+    print(f"{Fore.GREEN}[*] บันทึกตำแหน่งเป้าหมายสำเร็จ -> {phone_number}")
+    glitch_text(f"{Fore.GREEN}[ระบบ] ระบุจำนวนแพ็คเกจข้อมูลที่ต้องการส่งทดสอบ: {Fore.WHITE}")
+    try:
+        amount = int(input())
+        if amount <= 0:
+            print(f"{Fore.RED}\n[ข้อผิดพลาด] จำนวนรอบต้องมากกว่า 0")
+            return
+    except ValueError:
+        print(f"{Fore.RED}\n[ข้อผิดพลาดร้ายแรง] ระบบต้องการตัวเลขจำนวนเต็มเท่านั้น")
+        return
+
+    print("")
+    cyber_loading("เริ่มต้นโปรโตคอลไซเบอร์")
+    cyber_loading("สร้างอุโมงค์พร็อกซีลวงตา")
+    cyber_loading("ทดสอบการข้ามไฟร์วอลล์เกตเวย์")
+    
+    print(f"\n{Fore.RED}[!] คำเตือน: กำลังเริ่มกระบวนการจำลองการยิงข้อมูลจราจร...")
+    print(f"{Fore.GREEN}=========================================================================")
+    
+    success_count = 0
+    failed_count = 0
+
+    # 3. ลูปจำลองการส่งข้อมูลแบบ Real-time Tracker
+    for i in range(1, amount + 1):
+        # สุ่มดีเลย์ให้ความเร็วเครือข่ายขยับสมจริง
+        time.sleep(random.uniform(0.1, 0.4)) 
+        
+        # สุ่มรหัสฐานสิบหกให้ดูซับซ้อน
+        dummy_hex = f"0x{random.randint(1000, 9999)}A{random.randint(10, 99)}"
+        is_success = random.choices([True, False], weights=[92, 8])[0]
+        
+        if is_success:
+            success_count += 1
+            status = f"{Fore.GREEN}เชื่อมต่อสำเร็จ [200 OK]"
+        else:
+            failed_count += 1
+            status = f"{Fore.RED}หมดเวลาเชื่อมต่อ [408 ERR]"
+            
+        print(f"{Fore.WHITE}[ลำดับ_{i:04d}] {Fore.CYAN}ส่งไปยัง -> {phone_number} {Fore.WHITE}| {Fore.YELLOW}ชุดข้อมูล: {dummy_hex} {Fore.WHITE}| สถานะ: {status}")
+
+    # 4. หน้าแดชบอร์ดสรุปรายงานภาษาไทย
+    print(f"{Fore.GREEN}=========================================================================")
+    print(f"{Fore.YELLOW}[⚙️] สิ้นสุดกระบวนการส่งแพ็คเกจข้อมูลทดสอบ")
+    glitch_text(f"{Fore.LIGHTGREEN_EX}[+] จำนวนครั้งที่ส่งสำเร็จ (TX_OK): {success_count} ครั้ง\n", 0.02)
+    glitch_text(f"{Fore.RED}[-] จำนวนครั้งที่ล้มเหลว  (TX_ERR): {failed_count} ครั้ง\n", 0.02)
+    
+    log_cyber_report(phone_number, amount, success_count, failed_count)
+    print(f"\n{Fore.BLUE}[i] บันทึกรายงานเข้ารหัสลงในไฟล์ 'cyber_security_log.dat' เรียบร้อย")
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print(f"\n\n{Fore.RED}[!] การทำงานถูกระงับโดยผู้ใช้ บังคับปิดระบบ...")
+              
